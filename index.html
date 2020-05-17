@@ -1,0 +1,73 @@
+<!doctype html> <!-- указываем версию HTML5 -->
+<html> <!-- говорим браузеру что это web-страница -->
+   <head>
+   	    <!-- тут у нас служебная информация(шрифты, стили, назние, ключевые слова) -->
+        <title>ПоЛе ЧуДеС</title> <!-- название сайта -->
+        <meta charset="utf-8"> <!-- кодировка сайта -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Gentium+Book+Basic|Lato|Open+Sans|Yeseva+One" rel="stylesheet">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="center">
+	<h1 class="caption">!!!ПоЛе ЧуДеС!!!</h1>
+	<a href="#" class="btn">Начать игру</a>
+	<input type="text" id="bukva" maxlength="1">
+	<a href="#" class="btn-a">Дать ответ</a>
+	<div class="r-buk">
+		
+	</div>
+	<div class="n-let">
+		<span class="n-buk-span">Неправельные буквы</span>
+	</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
+<script>
+	var word = ['Конь', 'Человек', 'Массив', 'Лопата', 'Арматура', 'Слово', 'Редиска', 'Десять', 'Пробел', 'Телефон'];
+	var the_word;
+	var zag_word;
+	var otg_w;
+	var otg_was_w = 0;
+	var chit = 0;
+	$('.btn').on('click', function() {
+		the_word = Math.floor(Math.random()*word.length);
+		console.log(the_word);
+		zag_word = word[the_word].toLowerCase();
+		console.log(zag_word);
+		for (var i = 0; i < zag_word.length; i++) {
+			$('.r-buk').append('<div class="bukva"></div>');
+		}$(this).attr('style', 'pointer-events: none')
+	})
+	$('.btn-a').on('click', function(){
+		otg_w = $('#bukva').val().toLowerCase();
+		if (otg_w.length == 0) {
+			alert('Введите букву');
+		}
+		else{
+		console.log(otg_w);
+		chit++;
+		$("#bukva").val('');
+		var letter = $('.bukva');
+		
+		var is_find = 0;
+	for (var i = 0; i < zag_word.length; i++) {
+		if (zag_word[i] == otg_w) {
+			$(letter[i]).text(otg_w);
+			is_find = 1;
+			otg_was_w++;
+		}
+	}
+	if (is_find == 0) {
+		$('.n-let').append('<div class="n-buk">'+otg_w+'</div>');
+
+	}
+	if (otg_was_w == zag_word.length) {
+		alert("Победа была достигнута за " + chit + " шагов.");
+	}
+	}
+	})
+	
+</script>
+</html>
+</body>
